@@ -1,11 +1,5 @@
 FROM python:3.7-buster
 
-# Cannot use latest published version so we need to clone and install source
-RUN git clone https://github.com/NVIDIA/NVFlare.git \
-    && python3 -m pip install -e NVFlare
+RUN python3 -m pip install -e git+https://git@github.com/NVIDIA/NVFlare.git@dev#egg=nvflare-nightly
 
-# Cannot run `provision` with an auto-accept flag so we have to copy
-COPY project.yml .
-RUN provision -p project.yml \
-    # not sure why we need to do this
-    && mv /workspace/example_project/prod_00/* /workspace/
+# ENTRYPOINT ["/bin/bash" , "/workspace/overseer/startup/start.sh"]

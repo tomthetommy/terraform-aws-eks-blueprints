@@ -132,7 +132,7 @@ resource "kubernetes_secret" "argocd_gitops" {
 # ---------------------------------------------------------------------------------------------------------------------
 # Private Helm Access
 # ---------------------------------------------------------------------------------------------------------------------
-resource "kubernetes_secret" "argocd_gitops" {
+resource "kubernetes_secret" "argocd_helm_repo_gitops" {
   for_each = { for k, v in var.applications : k => v if try(v.helm_secret_name, null) != null }
 
   metadata {
